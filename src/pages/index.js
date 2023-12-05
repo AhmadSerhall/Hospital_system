@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import TextField from '../components/textfield/textfield';
 import Button from '../components/button/button';
+import { sendRequest } from '../core/helpers/request'; 
 
 const Index = () => {
   const [username, setUsername] = useState('');
@@ -19,7 +20,7 @@ const Index = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch('http://localhost/hospital_backend/api/login.php', {
         method: 'POST',
@@ -28,9 +29,9 @@ const Index = () => {
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       const result = await response.json();
-
+  
       if (result.status === 'logged in') {
         navigate('/patient', { state: { user_id: result.user_id, username: result.username } });
       } else {
@@ -41,7 +42,6 @@ const Index = () => {
       setError('An unexpected error occurred');
     }
   };
-
   return (
     <div>
       <h1 className='title center'>Welcome to the medical application</h1>
@@ -50,12 +50,14 @@ const Index = () => {
         and stay connected with your healthcare providers.
       </h3>
       <form onSubmit={handleSubmit}>
-        <TextField label="Username" value={username} placeholder='enter your username' onChange={handleUsernameChange} />
-        <TextField label="Password" value={password} placeholder='enter your password' onChange={handlePasswordChange} />
+        <div className="form center">
+        <TextField label="Username" value={username} placeholder='Enter your username' onChange={handleUsernameChange} />
+        <TextField label="Password" value={password} placeholder='Enter your password' onChange={handlePasswordChange} />
         <Button label="Log In" type="submit" />
+        </div>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+      {error && <p className='center'style={{ color: 'red' }}>{error}</p>}
+      <p className='center'>Don't have an account? <Link to="/signup">Sign up</Link></p>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import axios from "axios";
 export const sendRequest = async ({ route, body, method = "GET" }) => {
   try {
     const response = await axios.request({
-      url: `http://localhost/Foodex/php-workshop${route}.php`,
+      url: `http://localhost/hospital_backend/api${route}.php`,
       method,
       data: body,
       headers: {

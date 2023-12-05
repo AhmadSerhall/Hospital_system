@@ -3,12 +3,10 @@
   margin:0;
   border:0;
   box-sizing: border-box;
-  background-color: azure;
+}
+.center{
   text-align: center;
 }
-/* .App {
-  
-} */
 h1{
   margin-bottom: 40px;
   margin-top:40px;
